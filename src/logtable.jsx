@@ -20,12 +20,36 @@ const get_leaderboard_data = () => {
 
 const Scores = props => {
 
-    const [scores, setScores] = useState([]);
+    const [scores, setScores] = useState();
 
     useEffect(() => {
         get_leaderboard_data()
             .then(data => {
-                setScores(data);
+
+                // sanitize the scores
+                var player_score_object = {};
+                data.map(score => {
+                    if (!player_score_object.hasOwnProperty(score.contributor))
+                    {
+                        player_score_object[score.contributor] = 0;
+                    }
+                    var clean_score = parseInt(score.points);
+                    player_score_object[score.contributor] += clean_score;
+                    return null;
+                });
+
+                // load into a list and sort
+                var scores_array = []
+                for (var key in player_score_object)
+                {
+                    scores_array.push({
+                        contributor: key,
+                        score: player_score_object[key]
+                    })
+                }
+
+                scores_array.sort((first, second) => first.score < second.score);
+                setScores(scores_array);
             })
             .catch(err => {
                 console.error(err);
@@ -37,19 +61,15 @@ const Scores = props => {
             <thead>
                 <tr>
                     <th> Contributor </th>
-                    <th> Repository </th>
-                    <th> Issue Number </th>
                     <th> Bounty </th>
                 </tr>
             </thead>
             <tbody>
             {(scores &&
                 scores.map(score => {
-                    return <tr key={score._id}> 
+                    return <tr key={score.contributor}> 
                     <td> {score.contributor} </td>
-                    <td> {score.repository} </td>
-                    <td> <a href={score.html_url}> {score.issue_number} </a> </td>
-                    <td> {score.points} </td>
+                    <td> {score.score} </td>
                     </tr>
                 }))
             }
