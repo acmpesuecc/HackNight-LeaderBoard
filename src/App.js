@@ -1,14 +1,22 @@
 import './App.css';
-import JsonDataDisplay from './logtable'
+import logo from './hn_logo.png'
+import Scores from './logtable'
 
 function App() {
   return(
-
-    <div className="App">
-      <link rel="stylesheet" href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.3.css"/>
-      <h1>Leaderboard</h1>
-      <JsonDataDisplay />
-    </div>
+      <>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+        <div className="App">
+        <img alt="hacknight logo" src={logo}/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"/>
+          <h1>ACM PESUECC Hacknight 3.0</h1>
+          <h1>Leaderboard</h1>
+          <br/>
+          <Scores />
+        </div>
+      </>
   );
 }
 

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1em;
 }
 
 .App-logo {
