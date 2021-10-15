@@ -1,57 +1,61 @@
-import React from "react";
+import React, {useEffect, useState} from 'react'
 import './table.css'
-import JSONData from './sampletable.json'
+import axios from 'axios';
+// import JSONData from './sampletable.json'
 
-const axios = require('axios');
+const endpoint = "http://acm.savaal.xyz:3000/leaderboard";
 
-function JSONreturn() {
-    axios.get('http://142.93.216.101:3000/leaderboard').then(function (response) {
-        let x = new Promise((resolve, reject) => {
-            if(response.status === 200) {
-                resolve(JSON.parse(response.request.responseText));
-            }else{
-                reject("Error!");
-            }
-        });
-        x.then(function (value){
-            return value;
-        }, function (err) {
-            return err;
-        });
+const get_leaderboard_data = () => {
+    return new Promise ((resolve, reject) => {
+        axios
+            .get(endpoint)
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(error => {
+                reject(error);
+            })
     });
-}
+};
 
-function JsonDataDisplay() {
-    var x = JSONreturn();
-    console.log(x)
-    const displayData = JSONData.map((info) => {
-        return (
-            <tr>
-                <td>{info.contributor}</td>
-                <td>{info.repository}</td>
-                <td>{info.issue_number}</td>
-                <td>{info.maintainer}</td>
-                <td>{info.points}</td>
-            </tr>
-        );
-    });
+const Scores = props => {
+
+    const [scores, setScores] = useState([]);
+
+    useEffect(() => {
+        get_leaderboard_data()
+            .then(data => {
+                setScores(data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }, [])
+
     return (
-        <div>
-            <table className="table table-striped" border="1px solid">
-                <thead>
-                    <tr>
-                        <th>Contributor </th>
-                        <th>Repository Contributed to</th>
-                        <th>Issue Number</th>
-                        <th>Maintainer</th>
-                        <th>Points</th>
+        <table align="center">
+            <thead>
+                <tr>
+                    <th> Contributor </th>
+                    <th> Repository </th>
+                    <th> Issue Number </th>
+                    <th> Bounty </th>
+                </tr>
+            </thead>
+            <tbody>
+            {(scores &&
+                scores.map(score => {
+                    return <tr key={score._id}> 
+                    <td> {score.contributor} </td>
+                    <td> {score.repository} </td>
+                    <td> <a href={score.html_url}> {score.issue_number} </a> </td>
+                    <td> {score.points} </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {displayData}
-                </tbody>
-            </table>
-        </div>
-    );
-}
-export default JsonDataDisplay;
+                }))
+            }
+            </tbody>
+        </table>
+    )
+
+};
+export default Scores;
