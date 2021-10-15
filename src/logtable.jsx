@@ -3,7 +3,7 @@ import './table.css'
 import axios from 'axios';
 // import JSONData from './sampletable.json'
 
-const endpoint = "http://acm.savaal.xyz:3000/leaderboard";
+const endpoint = "https://acm.savaal.xyz/leaderboard";
 
 const get_leaderboard_data = () => {
     return new Promise ((resolve, reject) => {
