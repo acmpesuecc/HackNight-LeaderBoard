@@ -60,14 +60,16 @@ const Scores = props => {
         <table align="center">
             <thead>
                 <tr>
+                    <th> Position </th>
                     <th> Contributor </th>
                     <th> Bounty </th>
                 </tr>
             </thead>
             <tbody>
             {(scores &&
-                scores.map(score => {
+                scores.map((score, index) => {
                     return <tr key={score.contributor}> 
+                    <td> {index + 1} </td>
                     <td> {score.contributor} </td>
                     <td> {score.score} </td>
                     </tr>
