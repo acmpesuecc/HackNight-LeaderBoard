@@ -48,8 +48,10 @@ const Scores = props => {
                     })
                 }
 
-                scores_array.sort((first, second) => first.score < second.score);
+                //console.log(scores_array)
+                scores_array.sort((first, second) => second.score-first.score);
                 setScores(scores_array);
+                //console.log(scores_array)
             })
             .catch(err => {
                 console.error(err);
