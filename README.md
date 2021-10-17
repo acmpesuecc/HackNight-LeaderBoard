@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Hacknight 3.0 Leaderboard
+
+> UPDATE: The Leaderboard will accept a maximum of one pull request on the same issue, and one person being assigned to each issue. Contributors will be de-assigned if they do not submit a PR within 30 minutes.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
