@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import './table.css'
-import axios from 'axios';
+// import axios from 'axios';
 // import JSONData from './sampletable.json'
+import JSONData from './leaderboard.json';
 
-const endpoint = "https://acm.savaal.xyz/leaderboard";
 
 const get_leaderboard_data = () => {
+    /*
     return new Promise ((resolve, reject) => {
         axios
             .get(endpoint)
@@ -15,6 +16,10 @@ const get_leaderboard_data = () => {
             .catch(error => {
                 reject(error);
             })
+    });
+    */
+    return new Promise ((resolve, reject) => {
+        resolve(JSONData);
     });
 };
 
